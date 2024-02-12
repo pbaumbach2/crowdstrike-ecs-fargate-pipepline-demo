@@ -1,9 +1,9 @@
 name: CrowdStrike ECS Fargate Demo
 
 on:
-  ## scheduled job at 5:30 UTC every sunday
-  schedule:
-    - cron: '30 5 * * 0'
+  # ## scheduled job at 5:30 UTC every sunday
+  # schedule:
+  #   - cron: '30 5 * * 0'
   ## on push
   push:
     branches: [ main ]
