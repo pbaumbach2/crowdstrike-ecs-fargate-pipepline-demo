@@ -35,7 +35,7 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID}}:role/${{ secrets.ROLE_NAME }}
         role-session-name: ${{ secrets.ROLE_NAME }}
-        aws-region: us-west-2
+        aws-region: ca-central-1
 
     - name: Scan repository with CrowdStrike FCS IAC Scanner
       run: |
@@ -100,7 +100,7 @@ jobs:
         --rm $ECR_REGISTRY/$FALCON_IMAGE \
         -cid ${{ secrets.FALCON_CID }} \
         -image $ECR_REGISTRY/$FALCON_IMAGE \
-        -pulltoken $(echo "{\"auths\":{\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com\":{\"auth\":\"$(echo AWS:$(aws ecr get-login-password)|base64 -w 0)\"}}}" | base64 -w 0) \
+        -pulltoken $(echo "{\"auths\":{\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ca-central-1.amazonaws.com\":{\"auth\":\"$(echo AWS:$(aws ecr get-login-password)|base64 -w 0)\"}}}" | base64 -w 0) \
         -ecs-spec-file /root/taskdefinition.json > taskdefinitionwithfalcon.json
         cat taskdefinitionwithfalcon.json
 
@@ -116,7 +116,7 @@ jobs:
         --rm $ECR_REGISTRY/$FALCON_IMAGE \
         -cid ${{ secrets.FALCON_CID }} \
         -image $ECR_REGISTRY/$FALCON_IMAGE \
-        -pulltoken $(echo "{\"auths\":{\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-west-2.amazonaws.com\":{\"auth\":\"$(echo AWS:$(aws ecr get-login-password)|base64 -w 0)\"}}}" | base64 -w 0) \
+        -pulltoken $(echo "{\"auths\":{\"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ca-central-1.amazonaws.com\":{\"auth\":\"$(echo AWS:$(aws ecr get-login-password)|base64 -w 0)\"}}}" | base64 -w 0) \
         -cloudformationParams "ParameterKey=AppImagePath,ParameterValue=${ECR_REGISTRY}/${ECR_REPO}:latest" \
         -ecs-spec-file /root/cloudformation.yaml > cloudformationwithfalcon.yaml
         cat cloudformationwithfalcon.yaml
